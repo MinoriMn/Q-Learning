@@ -15,6 +15,8 @@ import random
 class Maze():
     PATH = 0 #道
     WALL = 1 #壁
+    STR = 'S' #スタート
+    GOL = 'G' #ゴール
     
     def __init__(self, width, height):
         self.maze = []
@@ -81,8 +83,8 @@ class Maze():
         """ スタートとゴールを迷路にいれる。"""
         self.start = [1, 1]
         self.goal = [self.width-2, self.height-2]
-        self.maze[self.start[0]][self.start[1]] = 'S'
-        self.maze[self.goal[0]][self.goal[1]] = 'G'
+        self.maze[self.start[0]][self.start[1]] = self.STR
+        self.maze[self.goal[0]][self.goal[1]] = self.GOL
         return self.maze
     def print_maze(self):
         """ 迷路を出力する。TODO 迷路の描画機能"""
@@ -92,9 +94,9 @@ class Maze():
                     print('　', end='')
                 elif cell == self.WALL:
                     print('＃', end='')
-                elif cell == 'S':
+                elif cell == self.STR:
                     print('Ｓ', end='')
-                elif cell == 'G':
+                elif cell == self.GOL:
                     print('Ｇ', end='')
             print()
 # maze = Maze(20, 20)
