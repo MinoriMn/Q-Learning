@@ -5,7 +5,7 @@
 # 棒倒し法による生成
 # https://yottagin.com/?p=1557
 
-# In[3]:
+# In[1]:
 
 
 # 迷路生成アルゴリズム(棒倒し法) https://yottagin.com/?p=1557
@@ -15,6 +15,8 @@ import random
 class Maze():
     PATH = 0 #道
     WALL = 1 #壁
+    STR = 'S' #スタート
+    GOL = 'G' #ゴール
     
     def __init__(self, width, height):
         self.maze = []
@@ -28,6 +30,13 @@ class Maze():
             self.width += 1
         if self.height % 2 == 0:
             self.height += 1
+            
+    def get_width_height(self):
+        return self.width, self.height
+    def get_start(self):
+        return self.start
+    def get_goal(self):
+        return self.goal
         
     # 迷路データ初期化
     def set_out_wall(self):
@@ -72,21 +81,23 @@ class Maze():
     
     def set_start_goal(self):
         """ スタートとゴールを迷路にいれる。"""
-        self.maze[1][1] = 'S'
-        self.maze[self.width-2][self.height-2] = 'G'
+        self.start = [1, 1]
+        self.goal = [self.width-2, self.height-2]
+        self.maze[self.start[0]][self.start[1]] = self.STR
+        self.maze[self.goal[0]][self.goal[1]] = self.GOL
         return self.maze
     def print_maze(self):
         """ 迷路を出力する。TODO 迷路の描画機能"""
         for row in self.maze:
             for cell in row:
                 if cell == self.PATH:
-                    print('   ', end='')
+                    print('　', end='')
                 elif cell == self.WALL:
-                    print('###', end='')
-                elif cell == 'S':
-                    print('STR', end='')
-                elif cell == 'G':
-                    print('GOL', end='')
+                    print('＃', end='')
+                elif cell == self.STR:
+                    print('Ｓ', end='')
+                elif cell == self.GOL:
+                    print('Ｇ', end='')
             print()
 # maze = Maze(20, 20)
 # maze.set_out_wall()
