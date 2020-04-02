@@ -11,7 +11,7 @@
 # 
 # QData側では壁と道の区別はしない
 
-# In[2]:
+# In[1]:
 
 
 from abc import ABCMeta, abstractmethod
@@ -20,7 +20,7 @@ from enum import Enum
 from operator import itemgetter
 
 
-# In[3]:
+# In[2]:
 
 
 # 行動
@@ -47,6 +47,7 @@ class Action(Enum):
     @staticmethod
     def max_to_actions(qMax):
         actions = []
+        qMax = int(qMax)
         if qMax & 1 > 0: 
             actions.append(Action.UP)
         elif qMax & 2 > 0: 
@@ -58,7 +59,7 @@ class Action(Enum):
         return actions
 
 
-# In[4]:
+# In[3]:
 
 
 #Q値更新
@@ -83,7 +84,7 @@ class QLearning(QUpdate):
         return qt + self.alpha * (reward + self.gamma * maxqt1 - qt)
 
 
-# In[5]:
+# In[4]:
 
 
 # 行動選択方法
@@ -108,7 +109,7 @@ class EpGreedy(ActionSelect):
             return actions[random.randrange(len(actions))]
 
 
-# In[6]:
+# In[5]:
 
 
 class ReinforcementLearning:    
@@ -123,7 +124,7 @@ class ReinforcementLearning:
         for x in range(0, self.width):
             qRow = []
             for y in range(0, self.height):
-                qRow.append({Action.UP : 0, Action.DOWN : 0, Action.RIGHT : 0, Action.LEFT : 0, Action.MAX : 0})
+                qRow.append({Action.UP : 0, Action.DOWN : 0, Action.RIGHT : 0, Action.LEFT : 0, Action.MAX : int(0)})
             qVal.append(qRow)
         
         self.qVal = qVal
@@ -157,8 +158,10 @@ class ReinforcementLearning:
         self.update_q_max(x, y)
     # 最大Q値更新
     def update_q_max(self, x, y):
-        l = itemgetter(Action.UP, Action.DOWN, Action.LEFT, Action.RIGHT)(self.qVal[x][y])
-        self.qVal[x][y][Action.MAX] = sum([2 ** i for i, v in enumerate(l) if v == max(l)])
+        item = itemgetter(Action.UP, Action.DOWN, Action.LEFT, Action.RIGHT)(self.qVal[x][y])
+        mV = max(item)
+        if mV != 0:
+            self.qVal[x][y][Action.MAX] = sum([2 ** i for i, v in enumerate(item) if v == mV])
         
     def is_in_maze(self, x, y):
         if (x < 0) or (y < 0) or (x > self.width) or (y > self.height):
