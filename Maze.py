@@ -87,7 +87,7 @@ class Maze():
         self.maze[self.goal[0]][self.goal[1]] = self.GOL
         return self.maze
     def print_maze(self):
-        """ 迷路を出力する。TODO 迷路の描画機能"""
+        """ 迷路を出力する。"""
         for row in self.maze:
             for cell in row:
                 if cell == self.PATH:
