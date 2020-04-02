@@ -8,6 +8,7 @@
 
 from PIL import Image, ImageDraw, ImageFont
 from Reinforcement_Learning import Action
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -92,6 +93,7 @@ class DrawMaze:
                     if Action.LEFT in actions: #LEFT
                         draw.text((x * self.cW + (self.cW - self.textData[3][1]) / 2, y * self.cH + (self.cH - self.textData[3][2]) / 2), self.textData[3][0], fill=self.textColor)
         im.save('output/images/img_' + str(self.imgIdx)+ '.jpg')
+#         plt.imshow(im)
         self.imgIdx = self.imgIdx + 1
 
 
