@@ -18,7 +18,14 @@ class Maze():
     STR = 'S' #スタート
     GOL = 'G' #ゴール
     
-    def __init__(self, width, height):
+    def __init__(self, args, mode):
+        if mode == 0: # generate
+            self.__init__generate(*args)
+        elif mode == 1: #import
+            self.__init__import(args)
+            
+    # 生成
+    def __init__generate(self, width, height):
         self.maze = []
         self.width = width
         self.height = height
@@ -30,6 +37,10 @@ class Maze():
             self.width += 1
         if self.height % 2 == 0:
             self.height += 1
+        pass
+    # データ読み込み
+    def __init__import(self, mazeData):
+        pass
             
     def get_width_height(self):
         return self.width, self.height
