@@ -8,6 +8,12 @@
 # In[1]:
 
 
+import csv
+
+
+# In[2]:
+
+
 # 迷路生成アルゴリズム(棒倒し法) https://yottagin.com/?p=1557
 import random
 
@@ -18,7 +24,14 @@ class Maze():
     STR = 'S' #スタート
     GOL = 'G' #ゴール
     
-    def __init__(self, width, height):
+    def __init__(self, args, mode):
+        if mode == 0: # generate
+            self.__init__generate(*args)
+        elif mode == 1: #import
+            self.__init__import(args)
+            
+    # 生成
+    def __init__generate(self, width, height):
         self.maze = []
         self.width = width
         self.height = height
@@ -30,6 +43,14 @@ class Maze():
             self.width += 1
         if self.height % 2 == 0:
             self.height += 1
+        pass
+    # データ読み込み
+    def __init__import(self, mazeData):
+        self.maze = [[int(v) if v == '1' or v == '0' else v for v in row] for row in mazeData]
+        self.width = len(mazeData)
+        self.height = len(mazeData[0])
+        self.start = [1, 1]
+        self.goal = [self.width-2, self.height-2]
             
     def get_width_height(self):
         return self.width, self.height
@@ -99,6 +120,14 @@ class Maze():
                 elif cell == self.GOL:
                     print('Ｇ', end='')
             print()
+            
+    # csvの書き出し
+    def export_csv(self, filename):
+        with open(filename, 'w') as f:
+            writer = csv.writer(f)
+            for row in self.maze:
+                writer.writerow(row)
+        
 # maze = Maze(20, 20)
 # maze.set_out_wall()
 # maze.set_inner_wall_botaoshi()
