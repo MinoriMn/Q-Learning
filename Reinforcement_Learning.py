@@ -110,7 +110,7 @@ class EpGreedy(ActionSelect):
             return actions[random.randrange(len(actions))]
 
 
-# In[5]:
+# In[3]:
 
 
 class ReinforcementLearning:    
@@ -169,6 +169,33 @@ class ReinforcementLearning:
             return False
         else:
             return True
+        
+    def import_q_data(self, mainfilename, datafilename, addAction):
+        # Mainデータ読み込み
+        with open(mainfilename, 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+#                 print(row)
+                if row[0] == 'action':
+                    startAction = int(row[1]) # 開始行動数
+                    finAction = startAction + addAction # 終了行動数
+                elif row[0] == 'mWidth':
+                    if self.width != int(row[1]):
+                        sys.exit()
+                elif row[0] == 'mHeight':
+                    if self.height != int(row[1]):
+                        sys.exit()
+        print('startAction:%d, finAction:%d' % (startAction, finAction))
+
+        #　Q値読み込み
+        with open(datafilename, 'r') as f:
+            h = next(csv.reader(f))
+            print(h)
+            for idx, row in enumerate(csv.reader(f)):
+                self.qVal[idx // self.width][idx % self.height] = {Action.UP : float(row[2]), Action.DOWN : float(row[3]), Action.RIGHT : float(row[4]), Action.LEFT : float(row[5]), Action.MAX : int(float(row[6]))}
+                print(row)
+                
+        return startAction, finAction
         
     def export_q_data(self, mainfilename, datafilename, action):
         with open(mainfilename, 'w') as f:
