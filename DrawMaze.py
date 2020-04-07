@@ -47,11 +47,9 @@ class DrawMaze:
         for text in texts:
             w, h = draw.textsize(text)
             self.textData.append([text, w, h])
-        # 出力画像
-        self.imgIdx = 0
         
     # 迷路描画
-    def drawMaze(self, learning, qMax, sx, sy, nx, ny):
+    def drawMaze(self, learning, qMax, sx, sy, nx, ny, imgIdx):
         im = Image.new('RGB', (self.imgW, self.imgH), self.pathColor)
         draw = ImageDraw.Draw(im)
         draw.font = ImageFont.truetype(self.font_ttf, min(self.cW, self.cH))
@@ -92,9 +90,7 @@ class DrawMaze:
                         draw.text((x * self.cW + (self.cW - self.textData[2][1]) / 2, y * self.cH + (self.cH - self.textData[2][2]) / 2), self.textData[2][0], fill=self.textColor)
                     if Action.LEFT in actions: #LEFT
                         draw.text((x * self.cW + (self.cW - self.textData[3][1]) / 2, y * self.cH + (self.cH - self.textData[3][2]) / 2), self.textData[3][0], fill=self.textColor)
-        im.save('output/images/img_' + str(self.imgIdx)+ '.jpg')
-#         plt.imshow(im)
-        self.imgIdx = self.imgIdx + 1
+        im.save('output/images/img_' + str(imgIdx)+ '.jpg')
 
 
 # In[3]:
