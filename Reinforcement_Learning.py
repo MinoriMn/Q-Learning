@@ -179,13 +179,20 @@ class ReinforcementLearning:
                 if row[0] == 'action':
                     startAction = int(row[1]) # 開始行動数
                     finAction = startAction + addAction # 終了行動数
+                elif row[0] == 'resetAction':
+                    resetAction = int(row[1])
+                elif row[0] == 'sx':
+                    sx = int(row[1])
+                elif row[0] == 'sy':
+                    sy = int(row[1])
                 elif row[0] == 'mWidth':
                     if self.width != int(row[1]):
                         sys.exit()
                 elif row[0] == 'mHeight':
                     if self.height != int(row[1]):
                         sys.exit()
-        print('startAction:%d, finAction:%d' % (startAction, finAction))
+                
+        print('startAction:%d, finAction:%d, resetAction:%d, sx:%d, sy:%d' % (startAction, finAction, resetAction, sx, sy))
 
         #　Q値読み込み
         with open(datafilename, 'r') as f:
@@ -195,14 +202,19 @@ class ReinforcementLearning:
                 self.qVal[idx // self.width][idx % self.height] = {Action.UP : float(row[2]), Action.DOWN : float(row[3]), Action.RIGHT : float(row[4]), Action.LEFT : float(row[5]), Action.MAX : int(float(row[6]))}
                 print(row)
                 
-        return startAction, finAction
+        return startAction, finAction, resetAction, sx, sy
         
-    def export_q_data(self, mainfilename, datafilename, action):
+    def export_q_data(self, mainfilename, datafilename, action, resetAction, sx, sy):
         with open(mainfilename, 'w') as f:
             writer = csv.writer(f)
             writer.writerow(['action', action]) #行動数
+            writer.writerow(['resetAction', resetAction])
+            writer.writerow(['sx', sx])
+            writer.writerow(['sy', sy])
             writer.writerow(['mWidth', self.width])
             writer.writerow(['mHeight', self.height]) 
+            writer.writerow(['mHeight', self.height]) 
+
         keys = self.qVal[0][0].keys()
         header = ['x', 'y'] + list(keys)#ヘッダー用のデータを作っておく
         print(header)
