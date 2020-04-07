@@ -18,6 +18,7 @@ from abc import ABCMeta, abstractmethod
 import random
 from enum import Enum
 from operator import itemgetter
+import csv
 
 
 # In[2]:
@@ -168,6 +169,29 @@ class ReinforcementLearning:
             return False
         else:
             return True
+        
+    def export_q_data(self, mainfilename, datafilename, action):
+        with open(mainfilename, 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(['action', action]) #行動数
+            writer.writerow(['mWidth', self.width])
+            writer.writerow(['mHeight', self.height]) 
+        keys = self.qVal[0][0].keys()
+        header = ['x', 'y'] + list(keys)#ヘッダー用のデータを作っておく
+        print(header)
+        
+        with open(datafilename,"w") as f:
+            # headerも渡してやる
+            # 渡した順番が列の順番になる
+            writer = csv.writer(f)
+
+            # そのままだとヘッダーは書き込まれないので、ここで書く
+            writer.writerow(header)
+
+            for x,  row in enumerate(self.qVal):
+                for y,  val in enumerate(row):
+                    data = [x, y] + list(val.values())
+                    writer.writerow(data)
 
 
 # In[ ]:
