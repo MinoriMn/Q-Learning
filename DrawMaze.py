@@ -35,8 +35,8 @@ class DrawMaze:
         self.mazeH = len(maze[0])
         self.maze = maze
         # ひとマスのサイズ
-        self.cW = int(self.imgW / self.mazeW)
-        self.cH = int(self.imgH / self.mazeH)
+        self.cW = int(self.imgW / (self.mazeW - 1))
+        self.cH = int(self.imgH / (self.mazeH - 1))
         # 文字定義
         im = Image.new('RGB', (self.imgW, self.imgH), self.pathColor)
         draw = ImageDraw.Draw(im)
