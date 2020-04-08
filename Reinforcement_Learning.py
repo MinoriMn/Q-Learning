@@ -19,7 +19,6 @@ import random
 from enum import Enum
 from operator import itemgetter
 import csv
-import sys
 
 
 # In[2]:
@@ -188,10 +187,12 @@ class ReinforcementLearning:
                     sy = int(row[1])
                 elif row[0] == 'mWidth':
                     if self.width != int(row[1]):
-                        sys.exit()
+                        print('迷路幅が違います')
+                        exit()
                 elif row[0] == 'mHeight':
                     if self.height != int(row[1]):
-                        sys.exit()
+                        print('迷路高が違います')
+                        exit()
                 
         print('startAction:%d, finAction:%d, resetAction:%d, sx:%d, sy:%d' % (startAction, finAction, resetAction, sx, sy))
 
