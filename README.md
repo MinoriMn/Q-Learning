@@ -26,10 +26,11 @@
 ＃＃＃＃＃＃＃＃＃＃＃＃＃
 
 ## 実行結果
-50000行動後画像
-![迷路画像](data:output/img_49999.jpg)
+50000行動後画像<br>
 
-学習動画 …`learning_video.mp4`
+<img src="output/img_49999.jpg" alt="学習結果画像"/>
+
+学習動画 …<a href="learning_video.mp4">`learning_video.mp4`</a>
 
 | x  | y  | Action.UP              | Action.DOWN            | Action.RIGHT           | Action.LEFT            | Action.MAX |
 |----|----|------------------------|------------------------|------------------------|------------------------|------------|
