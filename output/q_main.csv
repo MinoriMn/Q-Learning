@@ -1,7 +1,7 @@
-action,1600
-resetAction,9
-sx,1
-sy,3
-mWidth,21
-mHeight,21
-mHeight,21
+action,50000
+resetAction,1
+sx,2
+sy,1
+mWidth,13
+mHeight,13
+mHeight,13
